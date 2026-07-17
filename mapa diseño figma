@@ -1,20 +1,32 @@
-asiste
-├── 00 Design System
+├── 00_Cover
 │
-├── 01 Landing
+├── 01_Design_System
+│   ├── Colors
+│   ├── Typography
+│   ├── Grid
+│   ├── Icons
+│   ├── Buttons
+│   ├── Inputs
+│   ├── Cards
+│   ├── Tables
+│   ├── Alerts
+│   ├── QR
+│   └── Charts
 │
-├── 02 Docente
-│      Login
-│      Inicio
-│      Nueva clase
-│      QR
-│      Dashboard asignatura
-│      Dashboard clase
-│      Configuración
+├── 02_Docente
+│   ├── Login
+│   ├── Home
+│   ├── NuevaClase
+│   ├── QR
+│   ├── DashboardAsignatura
+│   ├── DashboardClase
+│   └── Configuracion
 │
-├── 03 Estudiante
-│      DNI
-│      Preguntas
-│      Confirmación
+├── 03_Estudiante
+│   ├── DNI
+│   ├── Preguntas
+│   └── Confirmacion
 │
-└── 04 Componentes
+└── 99_Prototipos
+    ├── Flujo_Docente
+    └── Flujo_Estudiante
