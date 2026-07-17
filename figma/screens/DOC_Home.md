@@ -20,15 +20,28 @@ Desktop
 
 ## Layout
 ┌──────────────────────────────────────────────────────────────┐
-│ Header │
+│ Header │ Altura 80 px
+|Componentes
+|- Logo
+|- Nombre de la aplicación
+|- Nombre del docente
+|- Botón cerrar sesión
 ├──────────────┬───────────────────────────────────────────────┤
-│ Sidebar │ │
-│ │ Dashboard │
+│ Sidebar      │Ancho260 px │
+|  Opciones
+|           🏠 Inicio
+|           ➕ Nueva clase
+│ │ 📊 Dashboard │ ⚙ Configuración
 │ │ │
-│ │ KPI Cards │
+│ │ KPI Cards  │  Cuatro tarjetas horizontales.
 │ │ │
 │ │ Acciones rápidas │
 │ │ │
 │ │ Últimas clases │
 │ │ │
 └──────────────┴───────────────────────────────────────────────┘
+
+
+
+
+
