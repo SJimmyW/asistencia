@@ -1,0 +1,52 @@
+{
+  "colors": {
+
+    "primary":"#2E7D32",
+
+    "secondary":"#1565C0",
+
+    "background":"#FFFFFF",
+
+    "surface":"#F5F5F5",
+
+    "border":"#D9D9D9",
+
+    "success":"#2E7D32",
+
+    "warning":"#ED6C02",
+
+    "error":"#C62828",
+
+    "text":"#212121"
+
+  },
+
+  "typography":{
+
+    "font":"Inter",
+
+    "h1":32,
+
+    "h2":24,
+
+    "h3":20,
+
+    "body":16,
+
+    "caption":14
+
+  },
+
+  "spacing":{
+
+    "base":8
+
+  },
+
+  "radius":{
+
+    "default":12
+
+  }
+
+}
