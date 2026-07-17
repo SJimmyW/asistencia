@@ -1,0 +1,20 @@
+asiste
+├── 00 Design System
+│
+├── 01 Landing
+│
+├── 02 Docente
+│      Login
+│      Inicio
+│      Nueva clase
+│      QR
+│      Dashboard asignatura
+│      Dashboard clase
+│      Configuración
+│
+├── 03 Estudiante
+│      DNI
+│      Preguntas
+│      Confirmación
+│
+└── 04 Componentes
