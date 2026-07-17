@@ -1,0 +1,64 @@
+# ==========================================================
+# asiste
+# Configuration file
+# ==========================================================
+
+default:
+
+  app:
+    name: "asiste"
+    version: "0.1.0"
+
+  language: "es"
+
+  timezone: "America/Argentina/Cordoba"
+
+  google:
+
+    # ID del Google Sheets (no la URL completa)
+    sheet_id: ""
+
+    # Hojas esperadas
+    sheets:
+
+      docentes: "Docentes"
+
+      estudiantes: "Estudiantes"
+
+      clases: "Clases"
+
+      preguntas: "Preguntas"
+
+      asistencia: "Asistencia"
+
+      respuestas: "Respuestas"
+
+  authentication:
+
+    session_timeout: 3600
+
+  qr:
+
+    default_duration_minutes: 10
+
+  ui:
+
+    title: "asiste"
+
+    theme: "flatly"
+
+    logo: "www/img/logo.png"
+
+    favicon: "www/favicon.ico"
+
+development:
+
+  verbose: TRUE
+
+  cache: FALSE
+
+production:
+
+  verbose: FALSE
+
+  cache: TRUE
