@@ -1,0 +1,57 @@
+asisteUNRC/
+│
+├── README.md
+├── LICENSE
+├── CITATION.cff
+├── CONTRIBUTING.md
+├── CODE_OF_CONDUCT.md
+├── CHANGELOG.md
+├── NEWS.md
+├── .gitignore
+├── .Rbuildignore
+├── DESCRIPTION
+├── NAMESPACE
+│
+├── app.R
+├── run_dev.R
+│
+├── R/
+│   ├── app_ui.R
+│   ├── app_server.R
+│   ├── globals.R
+│   ├── utils.R
+│   ├── config.R
+│   │
+│   ├── mod_login.R
+│   ├── mod_docente.R
+│   ├── mod_estudiante.R
+│   ├── mod_qr.R
+│   ├── mod_dashboard.R
+│   ├── mod_sheets.R
+│   ├── mod_preguntas.R
+│   └── mod_respuestas.R
+│
+├── inst/
+│   ├── app/
+│   ├── extdata/
+│   │   └── GoogleSheets_Template.xlsx
+│   └── figma/
+│       └── mockups.pdf
+│
+├── man/
+│
+├── tests/
+│
+├── renv/
+│
+├── www/
+│   ├── css/
+│   ├── js/
+│   ├── img/
+│   └── favicon.ico
+│
+└── docs/
+    ├── architecture.md
+    ├── sheets.md
+    ├── deployment.md
+    └── developer-guide.md
