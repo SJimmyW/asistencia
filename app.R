@@ -1,11 +1,26 @@
-# app.R
-#
+# ============================================================
+# asiste
 # Punto de entrada de la aplicación
-#
-options(
-  shiny.autoreload = TRUE
+# ============================================================
+
+# Punto de entrada de la aplicación
+
+# Cargar todos los archivos R automáticamente
+source_files <- list.files(
+  path = "R",
+  pattern = "\\.R$",
+  recursive = TRUE,
+  full.names = TRUE )
+
+purrr::walk(
+  source_files,
+  source
 )
+# app.R
+# Ejecutar aplicación
 
-library(asiste)
+shiny::shinyApp(
+  ui = app_ui(),
+  server = app_server )
 
-run_app()
+# options(  shiny.autoreload = TRUE ) ;library(asiste) ;run_app()
