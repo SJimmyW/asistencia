@@ -14,7 +14,7 @@ get_app_config <- function(){
 
   if( is.null( getOption("asiste.config") ) ){
 
-    cfg <- load_config()
+    cfg <- config::get() #cfg <- load_config()
     options( asiste.config = cfg)
   }
 
