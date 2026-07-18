@@ -1,0 +1,13 @@
+Package: asiste
+Title: Asiste - Attendance and Assessment System
+Version: 0.1.0
+Authors@R: person(given = "SJ", family = "Watson", role = c("aut", "cre"), email = "")
+Description: Open-source attendance and formative assessment system using Google Sheets as backend.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Imports:
+    shiny,
+    googlesheets4,
+    memoise,
+    cachem
