@@ -1,0 +1,57 @@
+figma/screens/DOC_QR.md
+````markdown
+# DOC_QR
+
+## Objetivo
+
+Mostrar el QR generado para la clase.
+
+---
+
+## Layout
+┌───────────────────────────────┐
+
+Header
+───────────────────────────────
+QR
+██████████████
+──────────────────────────────
+Clase
+Horario
+Válido desde
+Válido hasta
+───────────────────────────────
+Copiar enlace
+Descargar QR
+Finalizar clase
+└───────────────────────────────┘
+
+
+---
+
+## Información
+Clase
+Asignatura
+Fecha
+Hora inicio
+Hora fin
+Duración
+
+---
+
+## Botones
+
+Copiar enlace
+↓
+Copia URL al portapapeles
+---
+Descargar QR
+↓
+PNG
+---
+Finalizar clase
+↓
+Desactiva QR
+---
+## Módulo
+mod_qr.R
