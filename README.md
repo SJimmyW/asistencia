@@ -1,4 +1,4 @@
-# asisteUNRC
+# asiste
 **Open-source attendance and formative assessment system for higher education.**
 ---
 
