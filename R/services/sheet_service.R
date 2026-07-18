@@ -75,3 +75,35 @@ sheet_get_questions <- function(){
   sheet_read( cfg$sheets$preguntas )
 
 }
+
+#--------------------------------------------------------------
+# Leer docentes
+#--------------------------------------------------------------
+
+#' Obtener información de un docente
+#' Busca un docente por correo electrónico.
+#' @param email Correo institucional.
+#' @return Lista con información del usuario o NULL.
+#'
+#' @export
+
+sheet_get_teacher <- function(email){
+
+  cfg <- get_google_config()
+  usuarios <- sheet_read(cfg$sheets$usuarios)
+  docente <- usuarios[
+    usuarios$email == email &
+      usuarios$activo,
+  ]
+
+  if(nrow(docente) == 0){
+    return(NULL)
+  }
+
+  list(
+    email = docente$email[[1]],
+    nombre = docente$nombre[[1]],
+    rol = docente$rol[[1]],
+    comision = docente$comision[[1]]
+  )
+}
