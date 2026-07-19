@@ -48,7 +48,7 @@ app_server <- function(
 
   mod_login_server( "login",
                    on_success = function(){
-                     pagina( "home" )
+                    state$page <- "home" # pagina( "home" )
     }
   )
 
@@ -68,3 +68,18 @@ app_server <- function(
                          }
   )
 }
+
+#--------------------------------------------------------------
+# Estado global de la aplicación
+#--------------------------------------------------------------
+
+state <- shiny::reactiveValues( page = "login",
+                               teacher = NULL, 
+                               class = NULL,
+                               qr = NULL, 
+                               token = NULL, 
+                               student = NULL, 
+                               attendance = NULL,  
+                               answers = NULL, 
+                               result = NULL )
+
