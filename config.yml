@@ -47,9 +47,10 @@ default:
 
     theme: "flatly"
 
-    logo: "www/img/logo.png"
+    # Se cambió a SVG para placeholders
+    logo: "www/img/logo.svg"
 
-    favicon: "www/favicon.ico"
+    favicon: "www/favicon.svg"
 
 development:
 
