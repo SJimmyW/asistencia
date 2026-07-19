@@ -63,7 +63,7 @@ app_server <- function(
 # ==========================================================
 
   mod_student_dni_server( "student_dni",
-                         on_valid = function(dni) { 
+                         on_success = function(dni) { 
                            pagina( "student_questions"  )
                          }
   )
