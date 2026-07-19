@@ -107,3 +107,137 @@ sheet_get_teacher <- function(email){
     comision = docente$comision[[1]]
   )
 }
+
+#--------------------------------------------------------------
+# Leer preguntas de una clase
+#--------------------------------------------------------------
+
+#' Obtener preguntas de una clase
+#' @param id_clase Identificador de la clase.
+#'
+#' @return data.frame
+#'
+#' @export
+
+sheet_get_questions_class <- function(id_clase){
+  
+  preguntas <- sheet_get_questions()
+  preguntas[ preguntas$id_clase == id_clase, ]
+
+}
+
+#--------------------------------------------------------------
+# Registrar asistencia
+#--------------------------------------------------------------
+
+#' Guardar asistencia de un estudiante
+#' @param id_clase Clase.
+#' @param dni DNI.
+#' @param fecha_hora Fecha y hora.
+#' @param puntos Puntaje obtenido.
+#'
+#' @export
+
+sheet_save_attendance <- function(
+    id_clase,
+    dni,
+    fecha_hora = Sys.time(),
+    puntos = 0
+){
+
+  cfg <- get_google_config()
+
+  registro <- data.frame( id_clase = id_clase,
+                         DNI = dni,
+                         fecha_hora = fecha_hora,
+                         puntos = puntos,
+                         stringsAsFactors = FALSE )
+
+  sheet_append( sheet = cfg$sheets$asistencia, 
+               data = registro )
+}
+
+#--------------------------------------------------------------
+# Guardar respuestas
+#--------------------------------------------------------------
+
+#' Guardar respuestas de un estudiante
+#' @param respuestas data.frame.
+#'
+#' @export
+
+sheet_save_answers <- function(respuestas){
+
+  cfg <- get_google_config()
+  sheet_append( sheet = cfg$sheets$respuestas,
+               data = respuestas )
+}
+
+#--------------------------------------------------------------
+# Escribir hoja completa
+#--------------------------------------------------------------
+
+#' Sobrescribir una hoja del Google Sheets
+#' @param sheet Nombre de la hoja.
+#' @param data data.frame.
+#'
+#' @export
+
+sheet_write <- function( sheet,
+                        data ){
+
+  cfg <- get_google_config()
+  googlesheets4::sheet_write( data = data,
+                             ss = cfg$sheet_id,
+                             sheet = sheet )
+}
+
+#--------------------------------------------------------------
+# Leer una clase
+#--------------------------------------------------------------
+
+#' Obtener información de una clase
+#' @param id_clase Clase.
+#' @return data.frame
+#'
+#' @export
+
+sheet_get_class <- function(id_clase){
+  
+  cfg <- get_google_config()
+  clases <- sheet_read( cfg$sheets$clases )
+
+  clases[ clases$id_clase == id_clase, ]
+}
+#--------------------------------------------------------------
+# Leer asistencia
+#--------------------------------------------------------------
+
+#' Leer asistencias
+#' @return data.frame
+#'
+#' @export
+
+sheet_get_attendance <- function(){
+
+  cfg <- get_google_config()
+
+  sheet_read( cfg$sheets$asistencia )
+}
+
+#--------------------------------------------------------------
+# Leer respuestas
+#--------------------------------------------------------------
+
+#' Leer respuestas
+#' @return data.frame
+#'
+#' @export
+
+sheet_get_answers <- function(){
+
+  cfg <- get_google_config()
+
+  sheet_read( cfg$sheets$respuestas )
+
+}
