@@ -16,7 +16,7 @@ default:
   google:
 
     # ID del Google Sheets (no la URL completa)
-    sheet_id: ""
+    sheet_id: "1tzLeVkurlV0_-FFY_bQA32G_xmIfTWIxR8oatLD2S9Y"
 
     # Hojas esperadas
     sheets:
