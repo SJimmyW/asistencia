@@ -1,12 +1,12 @@
 # ============================================================
 # asiste
-# Servicio Google Sheets
+# Servicios Google Sheets (actualizado)
 # ============================================================
 
 #' Conectar Google Sheets
 #' Inicializa autenticación.
 #' @export
-#
+#'
 sheet_connect <- function(){
 
   cfg <- get_google_config()
@@ -24,7 +24,7 @@ sheet_connect <- function(){
 #' @param sheet nombre de hoja.
 #' @return dataframe.
 #' @export
-
+#'
 sheet_read <- function(sheet){
 
   cfg <- get_google_config()
@@ -37,7 +37,7 @@ sheet_read <- function(sheet){
 #' @param sheet hoja destino.
 #' @param data dataframe.
 #' @export
-#
+#'
 sheet_append <- function( sheet, 
                          data ){
 
@@ -55,20 +55,17 @@ sheet_append <- function( sheet,
 #' Función específica del dominio.
 #' @return estudiantes.
 #' @export
-#
-
+#'
 sheet_get_students <- function(){
 
   cfg <- get_google_config()
   sheet_read( cfg$sheets$estudiantes )
 }
 
-
 #' Leer preguntas
 #' @return preguntas.
 #' @export
-#
-
+#'
 sheet_get_questions <- function(){
 
   cfg <- get_google_config()
@@ -77,7 +74,7 @@ sheet_get_questions <- function(){
 }
 
 #--------------------------------------------------------------
-# Leer docentes
+# Leer docentes / usuarios
 #--------------------------------------------------------------
 
 #' Obtener información de un docente
@@ -86,25 +83,55 @@ sheet_get_questions <- function(){
 #' @return Lista con información del usuario o NULL.
 #'
 #' @export
-
+#'
 sheet_get_teacher <- function(email){
 
   cfg <- get_google_config()
-  usuarios <- sheet_read(cfg$sheets$usuarios)
-  docente <- usuarios[
-    usuarios$email == email &
-      usuarios$activo,
-  ]
 
-  if(nrow(docente) == 0){
-    return(NULL)
+  # Compatibilidad: preferimos la clave 'docentes' en config.yml pero
+  # algunos desarrollos usan 'usuarios'. Buscamos ambas.
+  sheet_name <- NULL
+  if( !is.null(cfg$sheets$docentes) ) sheet_name <- cfg$sheets$docentes
+  if( is.null(sheet_name) && !is.null(cfg$sheets$usuarios) ) sheet_name <- cfg$sheets$usuarios
+  if( is.null(sheet_name) ) stop("No hay una hoja configurada para docentes/usuarios en config.yml")
+
+  usuarios <- sheet_read(sheet_name)
+
+  # Normalizar nombres de columnas para robustez (tolower sin espacios)
+  col_names <- tolower(gsub("\n|\r|\s+", "", names(usuarios)))
+  # Mapear columnas esperadas a las reales si es necesario
+  email_col <- which(col_names == "email")
+  activo_col <- which(col_names == "activo")
+
+  if( length(email_col) == 0 ){
+    stop("La hoja de docentes/usuarios no contiene una columna 'email'")
+  }
+
+  email_values <- usuarios[[email_col]]
+  activo_values <- if( length(activo_col) ) usuarios[[activo_col]] else rep(TRUE, nrow(usuarios))
+
+  # Buscar docente
+  idx <- which(email_values == email & activo_values)
+
+  if( length(idx) == 0 ) return(NULL)
+
+  row <- usuarios[idx[1], , drop = FALSE]
+
+  # Intentar extraer columnas comunes
+  get_col <- function(df, names_vec){
+    cn <- tolower(gsub("\n|\r|\s+", "", names(df)))
+    for(nm in names_vec){
+      pos <- which(cn == nm)
+      if(length(pos)) return(df[[pos[1]]])
+    }
+    return(NA)
   }
 
   list(
-    email = docente$email[[1]],
-    nombre = docente$nombre[[1]],
-    rol = docente$rol[[1]],
-    comision = docente$comision[[1]]
+    email = get_col(row, c("email")),
+    nombre = get_col(row, c("nombre","name")),
+    rol = get_col(row, c("rol","role")),
+    comision = get_col(row, c("comision","commission"))
   )
 }
 
@@ -118,7 +145,7 @@ sheet_get_teacher <- function(email){
 #' @return data.frame
 #'
 #' @export
-
+#'
 sheet_get_questions_class <- function(id_clase){
   
   preguntas <- sheet_get_questions()
@@ -137,7 +164,7 @@ sheet_get_questions_class <- function(id_clase){
 #' @param puntos Puntaje obtenido.
 #'
 #' @export
-
+#'
 sheet_save_attendance <- function(
     id_clase,
     dni,
@@ -165,7 +192,7 @@ sheet_save_attendance <- function(
 #' @param respuestas data.frame.
 #'
 #' @export
-
+#'
 sheet_save_answers <- function(respuestas){
 
   cfg <- get_google_config()
@@ -182,7 +209,7 @@ sheet_save_answers <- function(respuestas){
 #' @param data data.frame.
 #'
 #' @export
-
+#'
 sheet_write <- function( sheet,
                         data ){
 
@@ -198,10 +225,10 @@ sheet_write <- function( sheet,
 
 #' Obtener información de una clase
 #' @param id_clase Clase.
-#' @return data.frame
+#' @' @return data.frame
 #'
 #' @export
-
+#'
 sheet_get_class <- function(id_clase){
   
   cfg <- get_google_config()
@@ -217,7 +244,7 @@ sheet_get_class <- function(id_clase){
 #' @return data.frame
 #'
 #' @export
-
+#'
 sheet_get_attendance <- function(){
 
   cfg <- get_google_config()
@@ -228,12 +255,12 @@ sheet_get_attendance <- function(){
 #--------------------------------------------------------------
 # Leer respuestas
 #--------------------------------------------------------------
-
+#'
 #' Leer respuestas
 #' @return data.frame
 #'
 #' @export
-
+#'
 sheet_get_answers <- function(){
 
   cfg <- get_google_config()
