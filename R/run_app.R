@@ -19,6 +19,7 @@ run_app <- function(...) {
 
   cfg <- load_config()
 
+  # Guardar configuración en opciones globales
   options(
 
     asiste.config = cfg,
@@ -26,6 +27,12 @@ run_app <- function(...) {
     shiny.maxRequestSize = 50 * 1024^2
 
   )
+
+  # Validar Google Sheets antes de iniciar la app.
+  # Esto comprobará accesibilidad, existencia de hojas y columnas mínimas.
+  # Si la validación falla, por defecto detendrá la ejecución con un error
+  # claro.
+  validate_sheets(cfg = cfg, stop_on_error = TRUE)
 
   shiny::shinyApp(
 
