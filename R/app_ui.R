@@ -20,3 +20,17 @@ app_ui <- function(){
     )
   )
 }
+
+output$main_content <- renderUI({
+
+    switch( state$page,
+           login = mod_login_ui("login"),
+           home = mod_home_ui("home"),
+           class = mod_class_ui("class"),
+           qr = mod_qr_ui("qr"),
+           student = mod_student_dni_ui("student"),
+           questions = mod_questions_ui("questions"),
+           finish = mod_finish_ui("finish")
+    )
+
+})
