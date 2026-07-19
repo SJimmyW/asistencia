@@ -16,12 +16,19 @@
 #'
 #' @export
 
-
 validate_dni <- function(dni) {
 
-  grepl(  #' buscar coincidencias de texto mediante expresiones regulares. Devuelve un vector lógico (TRUE si el patrón existe en el elemento, FALSE si no)
+  grepl(
     "^[0-9]{7,8}$", dni  )
 
+}
+
+# Compatibilidad: algunos módulos llaman a validate_student_dni()
+# Definimos un alias para evitar romper la ejecución.
+#' Validar DNI (compatibilidad)
+#' @export
+validate_student_dni <- function(dni){
+  validate_dni(dni)
 }
 
 #' Formatear porcentaje
