@@ -109,7 +109,7 @@
 109| ## Estructura mínima de las hojas (columnas esperadas)
 110| 
 111| Las hojas y las columnas mínimas que la app espera por defecto (pueden adaptarse en `config.yml`):
-112| 
+112| sheets ejemplo: https://docs.google.com/spreadsheets/d/1tzLeVkurlV0_-FFY_bQA32G_xmIfTWIxR8oatLD2S9Y/edit?usp=sharing
 113| - Docentes / Usuarios: `email`, `nombre`, `rol`, `comision`, `activo`
 114| - Estudiantes: `dni`, `nombre`, `email`
 115| - Clases: `id_clase`, (otras columnas opcionales como `curso`, `fecha`)
