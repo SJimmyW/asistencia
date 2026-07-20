@@ -1,0 +1,87 @@
+# R/app_server.R (sustituir contenido por este)
+# ============================================================
+# asiste
+# Servidor principal (unificado)
+# ============================================================
+
+app_server <- function(input, output, session) {
+
+  # Estado global ya definido en R/globals.R: state <- reactiveValues(...)
+  # Asegurarse de que state existe
+  if (!exists("state")) {
+    state <- shiny::reactiveValues(page = "login",
+                                  teacher = NULL,
+                                  class = NULL,
+                                  qr = NULL,
+                                  token = NULL,
+                                  student = NULL,
+                                  attendance = NULL,
+                                  answers = NULL,
+                                  result = NULL)
+  }
+
+  # Render pantalla actual usando state$page (coherente con app_ui)
+  output$page <- shiny::renderUI({
+    switch(state$page,
+           login = mod_login_ui("login"),
+           home = mod_home_ui("home"),
+           class = mod_class_ui("class"),
+           qr = mod_qr_ui("qr"),
+           student = mod_student_dni_ui("student"),
+           questions = mod_questions_ui("questions"),
+           finish = mod_finish_ui("finish"),
+           shiny::h3("Página no encontrada")
+    )
+  })
+
+  # LOGIN
+  mod_login_server("login", on_success = function() {
+    state$page <- "home"
+  })
+
+  # HOME
+  mod_home_server("home")
+
+  # CREAR CLASE (cuando se crea una clase, navegamos a pantalla QR)
+  mod_class_server("class", on_created = function(nueva_clase) {
+    state$class <- nueva_clase
+    state$page <- "qr"
+  })
+
+  # QR: esperar clase en state$class
+  mod_qr_server("qr", clase = shiny::reactive({ state$class }))
+
+  # ESTUDIANTE (DNI) - usar ID 'student'
+  mod_student_dni_server("student", on_valid = function(dni) {
+    state$student <- list(dni = dni)
+    state$page <- "questions"
+  })
+
+  # PREGUNTAS - pasar id_clase (leer desde state$class$id_clase si existe)
+  mod_questions_server("questions",
+                       id_clase = shiny::reactive({
+                         if (is.null(state$class)) return(NULL)
+                         # si state$class tiene una columna id_clase usarla; si no, NULL
+                         if (!is.null(state$class$id_clase)) state$class$id_clase else NULL
+                       }),
+                       on_success = function(respuestas) {
+                         state$answers <- respuestas
+                         state$page <- "finish"
+                       })
+
+  # FIN (mostrar resultado esperado)
+  mod_finish_server("finish",
+                    result = shiny::reactive({
+                      # construir result mínimo para mostrar
+                      list(
+                        total_attendance = if (!is.null(state$attendance)) nrow(state$attendance) else 0,
+                        correct_answers = if (!is.null(state$result$correct_answers)) state$result$correct_answers else NA,
+                        total_questions = if (!is.null(state$answers)) nrow(state$answers) else 0,
+                        score_percent = if (!is.null(state$result$score_percent)) state$result$score_percent else 0
+                      )
+                    }),
+                    on_finish = function() {
+                      # volver al inicio al finalizar
+                      state$page <- "home"
+                    })
+}
