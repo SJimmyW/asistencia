@@ -1,0 +1,34 @@
+# R
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+*.Rproj
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Credentials and secrets
+.Renviron
+.Rprofile
+config.local.yml
+credentials/
+secrets/
+
+# Cache and temp
+.cache/
+.tmp/
+*.log
+shiny_logs/
+
+# Build
+dist/
+build/
