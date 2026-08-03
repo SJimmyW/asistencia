@@ -1,55 +1,25 @@
 # ============================================================
 # asiste
-# Validaciones generales
+# Servicio de validación de datos
 # ============================================================
 
-#' Validar estructura DNI
-#' No verifica existencia, solo el formato.
-#'
-#' @param dni DNI estudiante.
-#' @return TRUE/FALSE
+#' Validar estructura de respuestas
+#' @param respuestas data.frame con columnas pregunta, respuesta
+#' @return logical
 #' @export
-#'
-
-validate_student_dni <- function(dni){
-
-  if( length(dni) != 1 ){
-    return(FALSE)
-  }
-
-  grepl( "^[0-9]{7,8}$", dni )
-
+validate_answers <- function(respuestas) {
+  if (!is.data.frame(respuestas)) return(FALSE)
+  if (nrow(respuestas) == 0) return(TRUE)
+  required_cols <- c("pregunta", "respuesta")
+  all(required_cols %in% names(respuestas))
 }
 
-#' Validar campos obligatorios
-#' @param data lista o dataframe.
-#' @param fields campos requeridos.
-#' @return TRUE/FALSE
+#' Validar estructura de preguntas
+#' @param preguntas data.frame
+#' @return logical
 #' @export
-#'
-
-validate_required_fields <- function(
-    data,
-    fields ){ 
-  all( fields %in% names(data) )
-}
-
-#' Validar ventana horaria
-#' Controla acceso QR.
-#' @param inicio inicio permitido.
-#' @param fin cierre permitido.
-#' @param actual hora actual.
-#'
-#' @return TRUE/FALSE
-#' @export
-#'
-
-validate_time_window <- function(
-    inicio,
-    fin,
-    actual = Sys.time() ){
-
-  actual >= inicio &&
-    actual <= fin
-
+validate_questions <- function(preguntas) {
+  if (!is.data.frame(preguntas)) return(FALSE)
+  required_cols <- c("id_pregunta", "id_clase", "pregunta", "opciones", "correcta")
+  all(required_cols %in% names(preguntas))
 }
