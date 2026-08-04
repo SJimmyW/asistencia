@@ -98,7 +98,7 @@ sheet_get_teacher <- function(email){
   usuarios <- sheet_read(sheet_name)
 
   # Normalizar nombres de columnas para robustez (tolower sin espacios)
-  col_names <- tolower(gsub("\n|\r|\s+", "", names(usuarios)))
+  col_names <- tolower(gsub("\\n|\\r|\\s+", "", names(usuarios)))
   # Mapear columnas esperadas a las reales si es necesario
   email_col <- which(col_names == "email")
   activo_col <- which(col_names == "activo")
@@ -119,7 +119,7 @@ sheet_get_teacher <- function(email){
 
   # Intentar extraer columnas comunes
   get_col <- function(df, names_vec){
-    cn <- tolower(gsub("\n|\r|\s+", "", names(df)))
+    cn <- tolower(gsub("\\n|\\r|\\s+", "", names(df)))
     for(nm in names_vec){
       pos <- which(cn == nm)
       if(length(pos)) return(df[[pos[1]]])
