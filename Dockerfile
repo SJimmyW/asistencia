@@ -23,5 +23,5 @@ RUN R -e "options(repos='http://cran.rstudio.com/'); \
 # Expose port
 EXPOSE 3838
 
-# Run the application with proper initialization
-CMD ["R", "--no-save", "--quiet", "-e", "source('R/app_init.R')"]
+# Run the application - load all R files and run app
+CMD ["R", "--no-save", "--quiet", "-e", "library(shiny); library(bslib); library(googlesheets4); library(purrr); library(config); library(digest); source_files <- list.files(path='R', pattern='\\\\.R$', recursive=TRUE, full.names=TRUE); invisible(lapply(source_files, source)); shiny::shinyApp(ui = app_ui(), server = app_server)"]
