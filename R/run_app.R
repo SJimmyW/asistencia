@@ -5,9 +5,11 @@
 #'
 #' * Reads configuration from config.yml
 #' * Initializes global options
-#' * Verifies Google Sheets configuration
 #' * Builds the UI
 #' * Starts the Shiny application
+#'
+#' Note: Google Sheets validation is deferred to when sheets are actually accessed,
+#' allowing the app to start even without Google credentials in development/testing.
 #'
 #' @param ... Arguments passed to shinyApp().
 #'
@@ -28,11 +30,8 @@ run_app <- function(...) {
 
   )
 
-  # Validar Google Sheets antes de iniciar la app.
-  # Esto comprobará accesibilidad, existencia de hojas y columnas mínimas.
-  # Si la validación falla, por defecto detendrá la ejecución con un error
-  # claro.
-  validate_sheets(cfg = cfg, stop_on_error = TRUE)
+  # Note: Google Sheets validation is deferred to actual usage
+  # This allows the app to start without Google credentials in dev/test environments
 
   shiny::shinyApp(
 
