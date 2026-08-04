@@ -14,7 +14,7 @@ WORKDIR /app
 COPY . /app/
 
 # Install additional R packages
-RUN R -e "install.packages(c('bslib', 'googlesheets4', 'purrr', 'digest'), repos='http://cran.rstudio.com/', dependencies=TRUE)"
+RUN R -e "install.packages(c('bslib', 'googlesheets4', 'purrr', 'config', 'digest'), repos='http://cran.rstudio.com/', dependencies=TRUE)"
 
 # Expose port
 EXPOSE 3838
