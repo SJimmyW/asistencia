@@ -14,10 +14,10 @@ WORKDIR /app
 COPY . /app/
 
 # Install additional R packages
-RUN R -e "install.packages(c('bslib', 'googlesheets4', 'purrr', 'config', 'digest'), repos='http://cran.rstudio.com/', dependencies=TRUE)"
+RUN R -e "install.packages(c('bslib', 'googlesheets4', 'purrr', 'digest'), repos='http://cran.rstudio.com/', dependencies=TRUE)"
 
 # Expose port
 EXPOSE 3838
 
-# Run the application
-CMD ["R", "--no-save", "--quiet", "-e", "library(shiny); library(bslib); library(googlesheets4); library(purrr); library(config); library(digest); source_files <- list.files(path='R', pattern='\\\\.R$', recursive=TRUE, full.names=TRUE); invisible(lapply(source_files, source)); shiny::shinyApp(ui = app_ui(), server = app_server)"]
+# Run the startup script
+CMD ["Rscript", "start_app.R"]
