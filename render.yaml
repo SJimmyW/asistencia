@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: asiste
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    port: 3838
+    envVars:
+      - key: GOOGLE_SHEETS_ID
+        value: ""
+        sync: false
+      - key: TZ
+        value: "America/Argentina/Cordoba"
+        sync: false
