@@ -17,5 +17,5 @@ source_files <- list.files(
 
 invisible(lapply(source_files, source))
 
-# Run the app
-shiny::shinyApp(ui = app_ui(), server = app_server)
+# Run the app using run_app() which handles config, validation, and startup
+run_app(host = "0.0.0.0", port = 3838)
