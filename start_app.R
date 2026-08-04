@@ -10,7 +10,7 @@ library(digest)
 # Source all R files
 source_files <- list.files(
   path = "R",
-  pattern = "\\.R$",
+  pattern = "\\.[Rr]$",
   recursive = TRUE,
   full.names = TRUE
 )
