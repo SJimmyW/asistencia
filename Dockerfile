@@ -7,16 +7,23 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libssl-dev \
     libxml2-dev \
     git \
+    ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
 # Set working directory
 WORKDIR /app
 
-# Copy application files FIRST (before install)
+# Copy application files
 COPY . /app/
 
-# Install R packages with fresh download
-RUN R --vanilla --quiet -e "options(repos='http://cran.rstudio.com/'); install.packages(c('shiny', 'bslib', 'googlesheets4', 'purrr', 'config', 'digest'), dependencies=TRUE, clean=TRUE)"
+# Install R packages using install2.r (more reliable)
+RUN install2.r --error \
+    shiny \
+    bslib \
+    googlesheets4 \
+    purrr \
+    config \
+    digest
 
 # Expose port
 EXPOSE 3838
