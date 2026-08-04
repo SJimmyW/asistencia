@@ -100,7 +100,7 @@ validate_sheets <- function(cfg = NULL, stop_on_error = TRUE){
       next
     }
 
-    header_norm <- tolower(gsub("\n|\r|\s+", "", header))
+    header_norm <- tolower(gsub("\\n|\\r|\\s+", "", header))
 
     key_lower <- tolower(sheet_key)
     exp_cols <- expected_columns[[key_lower]]
