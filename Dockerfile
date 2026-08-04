@@ -23,5 +23,5 @@ RUN R -e "options(repos='http://cran.rstudio.com/'); \
 # Expose port
 EXPOSE 3838
 
-# Run the application
-CMD ["R", "--no-save", "--quiet", "-e", "source('R/run_app.R'); run_app(host='0.0.0.0', port=3838)"]
+# Run the application with all R files sourced first
+CMD ["R", "--no-save", "--quiet", "-e", "source_files <- list.files(path='R', pattern='\\\\.R$', recursive=TRUE, full.names=TRUE); invisible(lapply(source_files, source)); run_app(host='0.0.0.0', port=3838)"]
