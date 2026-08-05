@@ -13,21 +13,7 @@
 
 app_server <- function(input, output, session) {
 
-  # Estado global ya definido en R/globals.R: state <- reactiveValues(...)
-  # Asegurarse de que state existe
-  if (!exists("state")) {
-    state <- shiny::reactiveValues(page = "login",
-                                  teacher = NULL,
-                                  class = NULL,
-                                  qr = NULL,
-                                  token = NULL,
-                                  student = NULL,
-                                  attendance = NULL,
-                                  answers = NULL,
-                                  result = NULL)
-  }
-
-  # Render pantalla actual usando state$page (coherente con app_ui)
+  # Render pantalla actual usando state$page (definido en globals.R)
   output$page <- shiny::renderUI({
     switch(state$page,
            login = mod_login_ui("login"),
@@ -92,17 +78,3 @@ app_server <- function(input, output, session) {
                       state$page <- "home"
                     })
 }
-
-#--------------------------------------------------------------
-# Estado global de la aplicación
-#--------------------------------------------------------------
-
-state <- shiny::reactiveValues(page = "login",
-                               teacher = NULL,
-                               class = NULL,
-                               qr = NULL,
-                               token = NULL,
-                               student = NULL,
-                               attendance = NULL,
-                               answers = NULL,
-                               result = NULL)
